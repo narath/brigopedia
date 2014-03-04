@@ -73,7 +73,7 @@ See the [https://github.com/narath/medwiki/wiki/Moving-your-wiki](wiki) for some
 
 ### Enable file uploading
 
-The image we use uses SELinux, so you will need to follow the instructions 
+The image we use uses SELinux, so you will need to follow the instructions here http://www.mediawiki.org/wiki/Manual:Configuring_file_uploads
 
 Enable some additional file extensions
 
