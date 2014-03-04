@@ -71,10 +71,25 @@ I had previously used FileExtension, but it broke recently in uploading Word fil
 
 See the [https://github.com/narath/medwiki/wiki/Moving-your-wiki](wiki) for some tips on moving from your prototype wiki to your production wiki.
 
-### Enable some additional file extensions
+### Enable file uploading
+
+The image we use uses SELinux, so you will need to follow the instructions 
+
+Enable some additional file extensions
 
 $wgFileExtensions = array('png','gif','jpg','jpeg','doc','xls','mpp','pdf','ppt','tiff','bmp','docx', 'doc', 'xlsx', 'pptx','ps','odt','ods','odp','odg');
 
+Increase the size of file uploads to 5MB
+
+    vim /etc/php.ini
+    
+Change
+
+    upload_max_filesize = 2M
+    
+To
+
+    upload_max_filesize = 5M
 
 ### Setup calendaring
 
