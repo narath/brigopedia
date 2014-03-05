@@ -93,4 +93,9 @@ To
 
 ### Setup calendaring
 
-We use google calendar (NOTE: these calendars are public), and the PHI widget
+We use google calendar for this, and are working on using an integrated widget
+
+# Feedback / Ideas / Suggestions
+
+I'd welcome your thoughts and feedback on this. Just post your thoughts in the issues and I should see it there. 
+
