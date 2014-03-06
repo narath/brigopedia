@@ -2,8 +2,8 @@
 $mediawiki_package = "mediawiki-1.22.2.tar.gz"
 $mediawiki_path = "http://download.wikimedia.org/mediawiki/1.22"
 $ldapAuthentication_extension_url = "https://codeload.github.com/wikimedia/mediawiki-extensions-LdapAuthentication/legacy.tar.gz/REL1_22"
-$dependencies = ["httpd", "php", "php-mysql", "php-gd", "php-xml", "php-ldap", "mysql", "git"]
-# $dependencies = ["httpd", "php", "php-mysql", "php-gd", "php-xml", "php-ldap", "mysql", "mysql-server", "git"]
+$dependencies = ["httpd", "php", "php-mysql", "php-gd", "php-xml", "php-ldap", "mysql", "git", "php-pear-Mail"]
+# $dependencies = ["httpd", "php", "php-mysql", "php-gd", "php-xml", "php-ldap", "mysql", "mysql-server", "git", "php-pear-Mail"]
 
 Exec {
 path => [
@@ -138,6 +138,16 @@ class install-mediawiki {
      command => "chown -R apache:apache /opt/mediawiki/mediawiki-1.22.2",
      timeout => 0,
   }
+  ->
+  exec { 'Enable Mediawiki to connect to remote database':
+     command => "setsebool -P httpd_can_network_connect_db 1",
+     timeout => 0,
+  }
+  ->
+  exec { 'Enable Mediawiki to connect to remote smtp service':
+     command => "setsebool -P httpd_can_network_connect 1",
+     timeout => 0,
+  }
   # ->
   # exec { 'Run mediawiki update script to create ldapAuthentication extension database tables':
   #    command => "/usr/bin/php /opt/mediawiki/mediawiki-1.22.2/maintenance/update.php --quick",
@@ -146,11 +156,11 @@ class install-mediawiki {
 
 }
 
-firewall { "009000 Http(s) Ports":
-  proto => "tcp",
-  port => [80, 443],
-  action => "accept",
-}
+# firewall { "009000 Http(s) Ports":
+#   proto => "tcp",
+#   port => [80, 443],
+#   action => "accept",
+# }
 
-# include enable-ssh
+include enable-ssh
 include install-mediawiki

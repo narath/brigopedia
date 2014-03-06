@@ -38,6 +38,21 @@ We recommend the following permission settings within your wiki
     # Disable reading by anonymous users
     $wgGroupPermissions['*']['read'] = false;
 
+### Configure SMTP (Mail) Settings
+
+If using a remote SMTP server, make sure you have enabled httpd to use network connections in SELinux.  This is currently handled by the Puppet script (see task 'Enable Mediawiki to connect to remote smtp service').
+
+Append to the LocalSettings file:
+
+    $wgSMTP = array(
+     'host'     => "mail.example.com", // could also be an IP address. Where the SMTP server is located
+     'IDHost'   => "example.com",      // Generally this will be the domain name of your website (aka mywiki.org)
+     'port'     => 25,                 // Port to use when connecting to the SMTP server
+     'auth'     => true,               // Should we use SMTP authentication (true or false)
+     'username' => "my_user_name",     // Username to use for SMTP authentication (if being used)
+     'password' => "my_password"       // Password to use for SMTP authentication (if being used)
+    );
+
 ### Move your LocalSettings to /etc/mediawiki and put it under version control
 
     sudo su
