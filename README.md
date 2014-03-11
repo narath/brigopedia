@@ -38,6 +38,8 @@ We recommend the following permission settings within your wiki
     # Disable reading by anonymous users
     $wgGroupPermissions['*']['read'] = false;
 
+TODO: how to enable LDAP to give you email addresses so that users can receive notifications about watched pages.
+
 ### Configure SMTP (Mail) Settings
 
 If using a remote SMTP server, make sure you have enabled httpd to use network connections in SELinux.  This is currently handled by the Puppet script (see task 'Enable Mediawiki to connect to remote smtp service').
@@ -110,7 +112,24 @@ To
 
 We use google calendar for this, and are working on using an integrated widget
 
+### Security updates
+
+Since the system uses a bunch of software, you should subscribe to the security updates for each of these, so you can update when vulnerabilities are known:
+
+* CentOS
+* SELinux
+* Mediawiki
+** Extensions you might need to patch
+** LDAPAuthentication
+** VisualEditor
+** Widgets extension
+* Node.js
+
+TODO: add links to these security mailing lists for these.
+Awesome: to setup a google group that is autosubscribed to these - so folks could just join that group
+
 # Feedback / Ideas / Suggestions
 
 I'd welcome your thoughts and feedback on this. Just post your thoughts in the issues and I should see it there. 
+
 
