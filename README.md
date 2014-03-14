@@ -27,7 +27,7 @@ Possibilities include:
 * local users (i.e. only those with local accounts can access the system, you control who can create or self create accounts).
 * ActiveDirectory integration
 
-We use ActiveDirectory using the [http://www.mediawiki.org/wiki/Extension:LDAP_Authentication](LDAP plugin). See the [https://github.com/narath/medwiki/wiki/ActiveDirectory](wiki) for some instructions on how to set this up (you will need to get some configuration settings from your ActiveDirectory admin).
+We use ActiveDirectory using the http://www.mediawiki.org/wiki/Extension:LDAP_Authentication. See the https://github.com/narath/medwiki/wiki/ActiveDirectory for some instructions on how to set this up (you will need to get some configuration settings from your ActiveDirectory admin).
 
 We recommend the following permission settings within your wiki
 
@@ -87,7 +87,7 @@ I had previously used FileExtension, but it broke recently in uploading Word fil
 
 ### Move over any previous wiki files you might have
 
-See the [https://github.com/narath/medwiki/wiki/Moving-your-wiki](wiki) for some tips on moving from your prototype wiki to your production wiki.
+See the https://github.com/narath/medwiki/wiki/Moving-your-wiki for some tips on moving from your prototype wiki to your production wiki.
 
 ### Enable file uploading
 
@@ -155,7 +155,7 @@ The VisualEditor extension provides convienent, user-friendly way for editors to
     chown parsoid:parsoid /opt/services/parsoid -R
 
     # Create parsoid init.d script in /etc/init.d/ to start parsoid node server
-    vi /etc/init.d/parsoid   # see [https://github.com/narath/medwiki/wiki/Parsoid-Node-Server-init.d-script](wiki) for an example
+    vi /etc/init.d/parsoid   # see https://github.com/narath/medwiki/wiki/Parsoid-Node-Server-init.d-script for an example
 
     chmod 755 /etc/init.d/parsoid
     chkconfig --add /etc/init.d/parsoid
@@ -179,13 +179,13 @@ The VisualEditor extension provides convienent, user-friendly way for editors to
     git submodule update --init
 
     # Add VisualEditor settings to mediawiki LocalSettings.php
-    vi LocalSettings.php  # see [https://github.com/narath/medwiki/wiki/VisualEditor-LocalSettings.php-properties](wiki)
+    vi LocalSettings.php  # see https://github.com/narath/medwiki/wiki/VisualEditor-LocalSettings.php-properties
 
 ### Backup Mediawiki
 
 Our backup script backups several disparate artifacts.  We first perform a mysqldump of the mediawiki database, then we create a tarball which includes the mysqldump data, the entire mediawiki application, as well as the mediawiki configuration files located under the /etc/mediawiki directory.
 
-The backup script then compresses the resulting tarball and gives it a date-stamped filename, for example, backup-201403111314.tgz.  Then the compressed backup file is uploaded to our Amazon S3 bucket.  The opensource AWS tools scripts are used to upload the backup file to Amazon S3, [http://timkay.com/aws/](Amazon S3 tools).  A sample backup script can be found here: [https://github.com/narath/medwiki/wiki/Mediawiki-sample-backup-script](wiki).
+The backup script then compresses the resulting tarball and gives it a date-stamped filename, for example, backup-201403111314.tgz.  Then the compressed backup file is uploaded to our Amazon S3 bucket.  The opensource AWS tools scripts are used to upload the backup file to Amazon S3, http://timkay.com/aws/.  A sample backup script can be found here: https://github.com/narath/medwiki/wiki/Mediawiki-sample-backup-script.
 
 ### Security updates
 
