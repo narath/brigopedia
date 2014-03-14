@@ -38,6 +38,8 @@ We recommend the following permission settings within your wiki
     # Disable reading by anonymous users
     $wgGroupPermissions['*']['read'] = false;
 
+TODO: how to enable LDAP to give you email addresses so that users can receive notifications about watched pages.
+
 ### Configure SMTP (Mail) Settings
 
 If using a remote SMTP server, make sure you have enabled httpd to use network connections in SELinux.  This is currently handled by the Puppet script (see task 'Enable Mediawiki to connect to remote smtp service').
@@ -186,7 +188,24 @@ Our backup script backups several disparate artifacts.  We first perform a mysql
 
 The backup script then compresses the resulting tarball and gives it a date-stamped filename, for example, backup-201403111314.tgz.  Then the compressed backup file is uploaded to our Amazon S3 bucket.  The opensource AWS tools scripts are used to upload the backup file to Amazon S3, [http://timkay.com/aws/].  A sample backup script can be found here: [https://github.com/narath/medwiki/wiki/Mediawiki-sample-backup-script].
 
+### Security updates
+
+Since the system uses a bunch of software, you should subscribe to the security updates for each of these, so you can update when vulnerabilities are known:
+
+* CentOS
+* SELinux
+* Mediawiki
+** Extensions you might need to patch
+** LDAPAuthentication
+** VisualEditor
+** Widgets extension
+* Node.js
+
+TODO: add links to these security mailing lists for these.
+Awesome: to setup a google group that is autosubscribed to these - so folks could just join that group
+
 # Feedback / Ideas / Suggestions
 
 I'd welcome your thoughts and feedback on this. Just post your thoughts in the issues and I should see it there. 
+
 
