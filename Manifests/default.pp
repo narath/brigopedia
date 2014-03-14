@@ -148,6 +148,18 @@ class install-mediawiki {
      command => "setsebool -P httpd_can_network_connect 1",
      timeout => 0,
   }
+  ->
+  exec { 'Install Epel repository':
+     command => "rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm",
+     timeout => 0,
+  }
+  ->
+  exec { 'Install nodejs and npm':
+     command => "yum -y --enablerepo=epel install npm nodejs",
+     timeout => 0,
+  }
+
+  
   # ->
   # exec { 'Run mediawiki update script to create ldapAuthentication extension database tables':
   #    command => "/usr/bin/php /opt/mediawiki/mediawiki-1.22.2/maintenance/update.php --quick",
