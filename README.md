@@ -109,9 +109,70 @@ To
 
     upload_max_filesize = 5M
 
-### Setup calendaring
+### Setup Foreground Skin for responsive site
 
-We use google calendar for this, and are working on using an integrated widget
+We use the Mediawiki Foreground Skin to add reponsive layouts to our mediawiki installation.  
+
+#### Installation Notes:
+
+    sudo su
+    # navigate to the mediawiki skins directory
+    cd /opt/mediawiki/mediawiki-{version}/skins
+
+    # clone foreground skin from github repo
+    git clone https://github.com/thingles/foreground.git
+
+    # change ownership to apache
+    chown apache:apache /opt/mediawiki/mediawiki-{version}/skins -R
+
+    # Add the following lines to LocalSettings.php: 
+    # require_once "$IP/skins/foreground/foreground.php";
+    vi /opt/mediawiki/mediawiki-{version}/LocalSettings.php
+
+    # Optionally, change the default skin to foreground for mobile devices (also in LocalSettings.php)
+    #    if (preg_match("/(mobile|webos|opera mini)/i", $_SERVER['HTTP_USER_AGENT'])) {
+    #       $wgDefaultSkin = 'foreground';
+    #    } else {
+    #       $wgDefaultSkin = 'vector';
+    #    }
+
+### Setup Calendaring with HTMLets extension
+
+We use Google Calendar for this through the mediawiki HTMLet extension.  HTMLets allow you to inject pre-defined HTML widgets into your mediawiki content.
+
+#### Installation Notes:
+
+    sudo su
+    # download HTMLets mediawiki extension
+    wget https://codeload.github.com/wikimedia/mediawiki-extensions-HTMLets/legacy.tar.gz/REL1_22
+
+    # unpack HTMLets extension
+    tar xvfz {tar file name} 
+
+    # make directory for HTMLets extension
+    mkdir /opt/mediawiki/mediawiki-{version}/extensions/HTMLets
+
+    # move contents to mediawiki extensions directory
+    mv wikimedia-mediawiki-extensions-HTMLets-895af16/* /opt/mediawiki/mediawiki-{version}/extensions/HTMLets
+
+    # go to mediawiki extensions directory
+    cd /opt/mediawiki/mediawiki-{version}/extensions
+
+    # Add the following lines to LocalSettings.php: 
+    # require_once( "$IP/extensions/HTMLets/HTMLets.php" );
+    # $wgHTMLetsDirectory = "$IP/htmlets";
+    vi /opt/mediawiki/mediawiki-{version}/LocalSettings.php
+
+    # Create new /opt/mediawiki/mediawiki-{version}/htmlets directory
+    mkdir /opt/mediawiki/mediawiki-{version}/htmlets
+
+    # Create new HTMLet file in the /opt/mediawiki/mediawiki-{version}/htmlets directory
+    # Include any html in the new file.
+
+    # change ownership of HTMLets extension and htmlets directory
+    chown apache:apache /opt/mediawiki/mediawiki-{version}/extensions/HTMLets -R
+    chown apache:apache /opt/mediawiki/mediawiki-{version}/htmlets -R
+
 
 ### Setup VisualEditor extension
 
@@ -189,19 +250,16 @@ The backup script then compresses the resulting tarball and gives it a date-stam
 
 ### Security updates
 
-Since the system uses a bunch of software, you should subscribe to the security updates for each of these, so you can update when vulnerabilities are known:
+We created a Google Group, brigopedia-security-alerts@googlegroups.com, wich you can subscribe to to receive information about vurnerabilities and security updates for the following brigopedia components:
 
 * CentOS
-* SELinux
 * Mediawiki
-** Extensions you might need to patch
-** LDAPAuthentication
-** VisualEditor
-** Widgets extension
-* Node.js
 
-TODO: add links to these security mailing lists for these.
-Awesome: to setup a google group that is autosubscribed to these - so folks could just join that group
+It would nice to be able to subscribe to mailing lists for these items, as well, but we were not able to locate lists for these extensions:
+
+* LDAPAuthentication
+* VisualEditor
+* Widgets extension
 
 # Feedback / Ideas / Suggestions
 
