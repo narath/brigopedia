@@ -136,6 +136,10 @@ We use the Mediawiki Foreground Skin to add reponsive layouts to our mediawiki i
     #       $wgDefaultSkin = 'vector';
     #    }
 
+#### Additional Styling Notes:
+
+In addition to the standard vector and foreground skins we added supplimental styles to support responsive "panels" on the main wiki page.  The wiki page https://github.com/narath/mediki/wiki/Additional-Styles---MediaWiki:Common.css shows the styles we used. These styles were added to /index.php/MediaWiki:Common.css page.
+
 ### Setup Calendaring with HTMLets extension
 
 We use Google Calendar for this through the mediawiki HTMLet extension.  HTMLets allow you to inject pre-defined HTML widgets into your mediawiki content.
@@ -250,7 +254,7 @@ The backup script then compresses the resulting tarball and gives it a date-stam
 
 ### Security updates
 
-We created a Google Group, brigopedia-security-alerts@googlegroups.com, wich you can subscribe to to receive information about vurnerabilities and security updates for the following brigopedia components:
+We created a Google Group, brigopedia-security-alerts@googlegroups.com, which you can subscribe to to receive information about vurnerabilities and security updates for the following brigopedia components:
 
 * CentOS
 * Mediawiki
