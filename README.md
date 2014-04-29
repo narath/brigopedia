@@ -246,6 +246,24 @@ The VisualEditor extension provides convienent, user-friendly way for editors to
     # Add VisualEditor settings to mediawiki LocalSettings.php
     vi LocalSettings.php  # see https://github.com/narath/medwiki/wiki/VisualEditor-LocalSettings.php-properties
 
+### Setup DynamicPageList (Intersection) extension
+
+The DynamicPageList (Intersection) extension allows users to embed lists of pages based on page categories.
+
+#### Installation Notes:
+
+    sudo su
+
+    # go to mediawiki extensions directory
+    cd /opt/mediawiki/mediawiki-{version}/extensions
+
+    # git clone Intersection extension
+    git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/intersection.git intersection
+
+    # Add the following line to LocalSettings.php to enable the Dynamic Page List (Intersection) extension
+    # require_once("$IP/extensions/intersection/DynamicPageList.php");
+    vi LocalSettings.php
+
 ### Backup Mediawiki
 
 Our backup script backups several disparate artifacts.  We first perform a mysqldump of the mediawiki database, then we create a tarball which includes the mysqldump data, the entire mediawiki application, as well as the mediawiki configuration files located under the /etc/mediawiki directory.
