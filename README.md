@@ -140,6 +140,79 @@ We use the Mediawiki Foreground Skin to add reponsive layouts to our mediawiki i
 
 In addition to the standard vector and foreground skins we added supplimental styles to support responsive "panels" on the main wiki page.  The wiki page https://github.com/narath/mediki/wiki/Additional-Styles---MediaWiki:Common.css shows the styles we used. These styles were added to /index.php/MediaWiki:Common.css page.
 
+### Setup TopTenPages extension
+
+We added the TopTenPages extension (http://www.mediawiki.org/wiki/Extension:TopTenPages) to our mediawiki installation.
+
+#### Installation Notes:
+
+We manually created the file TopTenPages.php in the `/opt/mediawiki/mediawiki-{version}/extensions` directory with the following contents:
+
+    <?php
+     
+    # To install the extension, add to your LocalSettings.php:
+    # require_once("$IP/extensions/TopTenPages.php");
+    
+    /*
+    	Syntax:
+    	<TopTenPages/>
+    	<TopTenPages>5</TopTenPages>
+    	<TopTenPages offset="1"/>
+    	{{Special:TopTenPages}}
+    	{{Special:TopTenPages/-/5}}
+    	{{Special:TopTenPages/1/5}}
+    */
+    
+    $wgExtensionCredits['specialpage'][] = array(
+    	'name' => 'TopTenPages',
+    	'version' => '0.3.2',
+    	'author' => array(
+    		'Timo Tijhof',
+    		'Sascha',
+   	),
+   	'url' => 'https://www.mediawiki.org/wiki/Extension:TopTenPages',
+    	'description' => 'Shows most viewed pages.',
+    );
+     
+    $wgAutoloadClasses['SpecialTopTenPages'] = __DIR__ . '/SpecialTopTenPages.php';
+    $wgSpecialPages['TopTenPages'] = 'SpecialTopTenPages';
+    $wgSpecialPageGroups['TopTenPages'] = 'other';
+     
+    $wgExtensionFunctions[] = 'efTopTenPages';
+     
+    # When including, always start the list numbering at one, even if offset was set.
+    # Defaults to false so that if (for example) offset is 1, the list will be numbered 2, 3, 4 ...
+    $wgttpAlwaysStartAtOne = false;
+     
+    function efTopTenPages() {
+    	global $wgParser;
+    	$wgParser->setHook( 'TopTenPages', 'efTopTenPagesRender' );
+    }
+     
+    /**
+     * The callback function for converting the input text to HTML output.
+     */
+    function efTopTenPagesRender( $text, array $args, Parser $parser, PPFrame $frame ) {
+    	if (array_key_exists('offset', $args)) {
+    		$offset = (int) $args['offset'];
+    	} else {
+    		$offset = 0;
+    	}
+    	if ($text > 0){
+    		$limit = (int) $text;
+    	} else {
+    		$limit = 10;
+    	}
+     	return $parser->recursiveTagParse( "{{Special:TopTenPages/$offset/$limit}}", $frame );
+    }
+
+We added the following lines to the `/opt/mediawiki/mediawiki-{version}/LocalSettings.php` file:
+
+    require_once("$IP/extensions/TopTenPages.php");
+    $wgttpAlwaysStartAtOne = true;
+
+The TopTenPages widget can now be added to any page by adding the <TopTenPages/> tag to any page.
+
 ### Setup Calendaring with HTMLets extension
 
 We use Google Calendar for this through the mediawiki HTMLet extension.  HTMLets allow you to inject pre-defined HTML widgets into your mediawiki content.
