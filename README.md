@@ -211,7 +211,7 @@ We added the following lines to the `/opt/mediawiki/mediawiki-{version}/LocalSet
     require_once("$IP/extensions/TopTenPages.php");
     $wgttpAlwaysStartAtOne = true;
 
-The TopTenPages widget can now be added to any page by adding the <TopTenPages/> tag to any page.
+The TopTenPages widget can now be added to any page by adding the `<TopTenPages/>` tag.
 
 ### Setup Calendaring with HTMLets extension
 
