@@ -140,6 +140,55 @@ We use the Mediawiki Foreground Skin to add reponsive layouts to our mediawiki i
 
 In addition to the standard vector and foreground skins we added supplimental styles to support responsive "panels" on the main wiki page.  The wiki page https://github.com/narath/mediki/wiki/Additional-Styles---MediaWiki:Common.css shows the styles we used. These styles were added to /index.php/MediaWiki:Common.css page.
 
+
+### Setup Twitter Widget extension
+
+We added the Twitter Widget extension (http://www.mediawikiwidgets.org/Twitter) to our mediawiki installation. This extension has a dependency on the Widget extension (http://www.mediawiki.org/wiki/Extension:Widgets).
+
+#### Installation Notes:
+
+We first installed the Widget extension. We performed the follow steps starting from the mediawiki home diretory:
+
+    cd extensions
+    git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Widgets.git
+    cd Widgets
+    git submodule init
+    git submodule update
+
+Then we added the follow instruction to the LocalSettings.php file:
+
+    require_once "$IP/extensions/Widgets/Widgets.php";
+    
+Then we changed the Widget extension file owership and granted read-write access to the web server to the Widgets/compliled_templates directory:
+
+    chown -R apache:apache /opt/mediawiki/mediawiki-{version}/extensions/Widgets
+    chmod -R 755 /opt/mediawiki/mediawiki-{version}/extensions/Widgets/compiled_templates
+    
+Then we then configured SELinux to allow the web server to write to the `compiled_templates` directory:
+
+    semanage fcontext -a -t httpd_sys_rw_content_t /opt/mediawiki/mediawiki-{version}/extensions/Widgets/compiled_templates
+    restorecon -v /opt/mediawiki/mediawiki-{version}/extensions/Widgets/compiled_templates
+    
+Next we declared the Twitter Widget by creating a new page called Widget.Twitter and adding the following content:
+
+    <noinclude>__NOTOC__
+    This widget allows you to embed a '''[http://twitter.com/widgets/html_widget Twitter feed]''' (HTML version) on your wiki page.
+
+    Created by [http://www.mediawikiwidgets.org/User:Sergey_Chernyshev Sergey Chernyshev]
+
+    == Using this widget ==
+    For information on how to use this widget, see [http://www.mediawikiwidgets.org/Twitter widget description page on MediaWikiWidgets.org].
+
+    == Copy to your site ==
+    To use this widget on your site, just install [http://www.mediawiki.org/wiki/Extension:Widgets MediaWiki Widgets extension] and copy [{{fullurl:{{FULLPAGENAME}}|action=edit}} full source code] of this page to your wiki as '''{{FULLPAGENAME}}''' article.
+    </noinclude><includeonly><a class="twitter-timeline" href="" data-widget-id="<!--{$id|escape:'html'}-->"></a>
+    <!--{counter name="twittercounter" assign="twitblogincluded"}--><!--{if $twitblogincluded eq 1}--><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><!--{/if}--></includeonly>
+
+Finally, we are able to embed the Twitter widget on any page with the following syntax:
+
+    {{#widget:Twitter|user=perfplanet|id=573172210619322368}}
+
+
 ### Setup TopTenPages extension
 
 We added the TopTenPages extension (http://www.mediawiki.org/wiki/Extension:TopTenPages) to our mediawiki installation.
